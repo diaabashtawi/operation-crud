@@ -1,10 +1,7 @@
 package com.crud.operation.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Vehicle {
@@ -19,17 +16,26 @@ public class Vehicle {
 
     private int year, price;
 
+    @ManyToOne(
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(
+            name = "owner"
+    )
+    private Owner owner;
+
     public Vehicle() {
 
     }
 
-    public Vehicle(String brand, String model, String color, String registerNumber, int year, int price) {
+    public Vehicle(String brand, String model, String color, String registerNumber, int year, int price, Owner owner) {
         this.brand = brand;
         this.model = model;
         this.color = color;
         this.registerNumber = registerNumber;
         this.year = year;
         this.price = price;
+        this.owner = owner;
     }
 
     public long getId() {
@@ -86,6 +92,14 @@ public class Vehicle {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 
     @Override

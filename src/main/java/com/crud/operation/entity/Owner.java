@@ -1,9 +1,7 @@
 package com.crud.operation.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Owner {
@@ -15,6 +13,12 @@ public class Owner {
     private long ownerId;
 
     private String firstName, lastName;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "owner"
+    )
+    private List<Vehicle> vehicle;
 
     public Owner() {
 
@@ -47,6 +51,14 @@ public class Owner {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Vehicle> getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(List<Vehicle> vehicle) {
+        this.vehicle = vehicle;
     }
 
     @Override
