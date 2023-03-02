@@ -83,8 +83,5 @@ public class OperationCrudApplication implements CommandLineRunner {
         ownerRepository.saveAll(Arrays.asList(owner1, owner2));
         vehicleRepository.saveAll(Arrays.asList(vehicle1, vehicle2, vehicle3));
 
-        for (Vehicle vehicle : vehicleRepository.findAll()) {
-            logger.info(vehicle.getBrand() + " " + vehicle.getModel());
-        }
     }
 }
