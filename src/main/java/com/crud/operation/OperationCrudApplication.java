@@ -1,8 +1,10 @@
 package com.crud.operation;
 
 import com.crud.operation.entity.Owner;
+import com.crud.operation.entity.User;
 import com.crud.operation.entity.Vehicle;
 import com.crud.operation.repository.OwnerRepository;
+import com.crud.operation.repository.UserRepository;
 import com.crud.operation.repository.VehicleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +24,15 @@ public class OperationCrudApplication implements CommandLineRunner {
 
     private OwnerRepository ownerRepository;
 
+    private UserRepository userRepository;
+
     @Autowired
-    public OperationCrudApplication(VehicleRepository vehicleRepository, OwnerRepository ownerRepository) {
+    public OperationCrudApplication(VehicleRepository vehicleRepository, OwnerRepository ownerRepository, UserRepository userRepository) {
         this.vehicleRepository = vehicleRepository;
         this.ownerRepository = ownerRepository;
+        this.userRepository = userRepository;
     }
+
 
     public static void main(String[] args) {
         SpringApplication.run(OperationCrudApplication.class, args);
@@ -83,5 +89,16 @@ public class OperationCrudApplication implements CommandLineRunner {
         ownerRepository.saveAll(Arrays.asList(owner1, owner2));
         vehicleRepository.saveAll(Arrays.asList(vehicle1, vehicle2, vehicle3));
 
+        //Username : user, Password: password
+        userRepository.save(new User("user",
+                "$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue", "USER"));
+
+        //Username: admin, Password: admin
+        userRepository.save(new User("admin",
+                "$2a$10$8cjz47bjbR4Mn8GMg9IZx.vyjhLXR/SKKMSZ9.mP9vpMu0ssKi8GW", "ADMIN"));
+
+
     }
+
+
 }
