@@ -25,6 +25,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationFilter authenticationFilter;
 
     @Autowired
+    private AuthEntryPoint exceptionHandler;
+
+    @Autowired
     public void configureGolbal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(new BCryptPasswordEncoder());
@@ -47,6 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest()
                 .authenticated().and()
+                .exceptionHandling()
+                .authenticationEntryPoint(exceptionHandler).and()
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
